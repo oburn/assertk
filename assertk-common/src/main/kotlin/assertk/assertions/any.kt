@@ -124,7 +124,7 @@ fun <T : Any> Assert<T?>.isNull() {
  */
 fun <T : Any> Assert<T?>.isNotNull(f: (Assert<T>) -> Unit = {}) {
     if (actual != null) {
-        assert(actual, name = name).all(f)
+        assert(actual, name = name).all(body = f)
     } else {
         expected("to not be null")
     }
@@ -187,7 +187,7 @@ fun <T : Any> Assert<T>.isNotInstanceOf(kclass: KClass<out T>) {
 fun <T : Any, S: T> Assert<T>.isInstanceOf(kclass: KClass<S>, f: (Assert<S>) -> Unit = {}) {
     if (kclass.isInstance(actual)) {
         @Suppress("UNCHECKED_CAST")
-        assert(actual as S, name = name).all(f)
+        assert(actual as S, name = name).all(body = f)
     } else {
         expected("to be instance of:${show(kclass)} but had class:${show(actual::class)}")
     }

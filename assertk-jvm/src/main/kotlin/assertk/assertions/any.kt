@@ -48,7 +48,7 @@ fun <T : Any> Assert<T>.doesNotHaveClass(jclass: Class<out T>) {
 fun <T : Any, S : T> Assert<T>.isInstanceOf(jclass: Class<S>, f: (Assert<S>) -> Unit = {}) {
     if (jclass.isInstance(actual)) {
         @Suppress("UNCHECKED_CAST")
-        assert(actual as S, name = name).all(f)
+        assert(actual as S, name = name).all(body = f)
     } else {
         expected("to be instance of:${show(jclass)} but had class:${show(actual.javaClass)}")
     }
